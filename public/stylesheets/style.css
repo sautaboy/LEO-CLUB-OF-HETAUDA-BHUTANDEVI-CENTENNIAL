@@ -7,6 +7,7 @@
   color: var(--white);
   font-family: "Nunito Sans", sans-serif;
   font-optical-sizing: auto;
+  letter-spacing: 1px;
 }
 
 
@@ -14,9 +15,10 @@
 :root {
   --yellow: rgb(213, 161, 48);
   --grey: rgb(127, 127, 127);
-  --dark: rgb(45, 45, 45);
+  --dark: rgba(45, 45, 45, 0.747);
   --black: rgb(33, 33, 33);
   --white: rgb(255, 255, 255);
+  --blue: rgb(35, 50, 84);
 }
 
 
@@ -27,6 +29,10 @@ img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+p {
+  line-height: 25px;
 }
 
 html,
@@ -41,16 +47,16 @@ nav {
   display: flex;
   margin: 0 auto;
   align-items: center;
-  height: 7vh;
+  /* height: 7vh; */
   justify-content: space-between;
   position: sticky;
   top: 15px;
   z-index: 9;
   background: var(--dark);
-  margin-top: 10px;
   border-radius: 50px;
   padding: 10px 20px;
   width: 85%;
+  margin-bottom: 2rem;
 }
 
 nav span.web-title {
@@ -92,9 +98,6 @@ nav .middle a {
 
 
 button {
-  padding: 10px;
-  border-radius: 10px;
-  width: 7rem;
   letter-spacing: 1px;
   background-color: var(--yellow);
   cursor: pointer;
@@ -104,7 +107,17 @@ button {
   font-size: medium;
 }
 
-nav .right button.join {
+a.button,
+input.button {
+  background: var(--yellow);
+  width: 8rem;
+  padding: 10px 20px;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+}
+
+a.button.join {
   background: green;
 }
 
@@ -421,4 +434,309 @@ img {
 #about-info .why-choose-us>div>div>h4 {
   width: 90%;
   margin: 0 auto;
+}
+
+
+
+/* join us page */
+main.joinus {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 5rem;
+}
+
+main.joinus p {
+  width: 80%;
+  line-height: 30px;
+}
+
+main.joinus form input {
+  padding: 20px;
+  width: 20rem;
+  margin-bottom: 2rem;
+  margin-right: 1rem;
+  letter-spacing: 1px;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  color: var(--black);
+}
+
+/* members page */
+
+main.members {
+  width: 80%;
+  margin-top: 5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+main.members p.info {
+  line-height: 30px;
+  width: 80%;
+}
+
+main.members .members-container {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 1rem;
+}
+
+main.members .members-container .member-box {
+  width: calc(100% / 4 - 10px);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  /* gap: 10px; */
+  background: var(--grey);
+  overflow-y: hidden;
+  height: 32rem;
+}
+
+main.members .members-container .member-box img {
+  height: 70%;
+  transition: .5s ease-in-out;
+}
+
+main.members .members-container .member-box:hover>img {
+  scale: 1.1;
+}
+
+main.members .members-container .member-box>div {
+  transition: .5s ease-in-out;
+  padding: 10px;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+}
+
+main.members .members-container .member-box:hover>div {
+  margin-top: 1rem;
+}
+
+/* about us */
+.background-attachment {
+  height: 80vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.background-attachment::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("https://images.unsplash.com/photo-1553603227-2358aabe821e?q=80&w=3432&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: brightness(50%);
+  /* Reduce the brightness of the background */
+}
+
+.background-attachment div {
+  position: absolute;
+  top: 50%;
+  left: 20%;
+  transform: translate(-20%, -50%);
+  width: 60%;
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  z-index: 1;
+}
+
+
+.background-attachment div h1 {
+  font-size: 2vw;
+  line-height: 50px;
+}
+
+.background-attachment div p {
+  line-height: 25px;
+}
+
+main.about-us div.we-are-on-mission {
+  background: var(--grey);
+  height: 20vh;
+  width: 80%;
+  margin: 0 auto;
+  padding: 2rem;
+  margin-top: 5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background: var(--blue);
+  text-align: justify;
+}
+
+.about-us-card {
+  width: 80%;
+  margin: 0 auto;
+  background: var(--grey);
+  height: 40vh;
+  margin-top: 2rem;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+}
+
+.about-us-card>div:nth-child(2) {
+  /* background: honeydew; */
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  justify-content: center;
+}
+
+
+.about-us-card img {
+  object-position: left;
+}
+
+#parallelogram {
+  width: 40%;
+  height: 100%;
+  transform: skew(-20deg);
+  position: relative;
+  left: -5rem;
+  background: red;
+}
+
+
+
+
+/* make donation */
+
+
+.make-donation-info {
+  width: 80%;
+  margin: 5rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 5rem;
+}
+
+.make-donation-info p {
+  width: 80%;
+}
+
+.how-would-you-like-to-pay {
+  display: flex;
+  width: 80%;
+  margin: 0 auto;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.how-would-you-like-to-pay div {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.donation-image {
+  height: 80vh;
+  width: 80%;
+  background: var(--grey);
+  margin: 0 auto;
+  margin-top: 5rem;
+  overflow: hidden;
+  border-radius: 10px;
+  position: relative;
+}
+
+.donation-image::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  filter: brightness(50%);
+}
+
+.donation-image video {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  filter: brightness(50%);
+  /* Apply brightness filter to the video */
+}
+
+.donation-image div {
+  position: absolute;
+  top: 50%;
+  left: 20%;
+  transform: translate(-20%, -50%);
+  width: 50%;
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  z-index: 1;
+}
+
+
+
+
+
+
+
+
+
+/*footer */
+footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 40vh;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1rem 10%;
+  background: #111;
+  margin-top: 5rem;
+}
+
+footer img {
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+}
+
+footer>div {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+footer>div:nth-child(1) {
+  width: 25%;
+}
+
+footer>div:nth-child(1)>div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  line-height: 25px;
+}
+
+footer>div:nth-child(1) p {
+  line-height: 25px;
+}
+
+footer>div:nth-child(2)>div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <main class="make-donation">
+        <% try { %>
+            <%- include('header') %>
+                <% } catch (error) { %>
+                    <p>Error rendering header: <%= error.message %>
+                    </p>
+                    <% } %>
+
+
+
+
+
+                        <div class="make-donation-info">
+                            <h1>Make a Donation</h1>
+                            <p>With 100% of donations going towards grants and programs, LCIF empowers the compassionate
+                                service of Lions and those who
+                                need our help. Although those benefitting from your support may never know of your
+                                generosity, Lions Clubs International
+                                Foundation and our beneficiaries are grateful for your support.</p>
+                        </div>
+
+                        <div class="how-would-you-like-to-pay">
+                            <h1>How would you like to pay?</h1>
+                            <div>
+                                <a href="" class="button">eSewa</a>
+                                <a href="" class="button">Paypal</a>
+                            </div>
+                        </div>
+
+
+                        <div class="donation-image">
+                            <video src="/videos/5738272-hd_1920_1080_30fps.mp4" autoplay muted loop></video>
+                            <div>
+                                <h1>Your Donate Make Soe One LIfe Easier</h1>
+                                <p>LCIF is your foundation—and together, we can respond quickly for a powerful impact.
+                                    Discover how your service can be
+                                    magnified.</p>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </main>
+    <% try { %>
+        <%- include('footer') %>
+            <% } catch (error) { %>
+                <p>Error rendering header: <%= error.message %>
+                </p>
+                <% } %>
+</body>
+
+</html>

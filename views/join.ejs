@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join</title>
+    <link rel="stylesheet" href="stylesheets/style.css">
+</head>
+
+<body>
+
+    <!-- header  -->
+    <% try { %>
+        <%- include('header') %>
+            <% } catch (error) { %>
+                <p>Error rendering header: <%= error.message %>
+                </p>
+                <% } %>
+
+                    <main class="joinus">
+                        <h1>
+                            Your Lions journey starts here
+                        </h1>
+
+                        <p>
+                            Community. Service. Bringing passionate, kind-hearted people together to serve local needs:
+                            that’s what
+                            Lions clubs are
+                            doing in more than 200 countries around the world. Lions see a problem and take action to
+                            solve it. They
+                            seek to
+                            understand one another and the people they serve. They build relationships that lead to
+                            opportunities. In
+                            short, when
+                            Lions serve, life improves.
+                        </p>
+                        <p>
+                            If you’re ready to start your Lions journey and take the first step in becoming part of the
+                            largest service
+                            club
+                            organization, fill out the form below. This information will be directed to Lion leaders in
+                            your area, who
+                            will then be
+                            in contact with you. We are excited for you to start your service journey!
+                        </p>
+
+                        <form action="/newMember" method="POST">
+                            <h1>Tel l Us About Yourself</h1>
+                            <br>
+
+                            <label for="name">
+                            </label>
+                            <input type="text" name="name" placeholder="Full Name">
+                            <label for="age">
+                            </label>
+                            <input type="number" name="age" placeholder="Age">
+                            <label for="phoneNumber"></label>
+                            <br>
+                            <input type="number" name="number" placeholder="Phone Number">
+                            <label for="emailAddress"></label>
+                            <input type="email" name="email" placeholder="Email Address">
+                            <br>
+
+                            <label for="address"></label>
+                            <input type="text" name="address" placeholder="Address">
+
+                            <input type="submit" class="button">
+                        </form>
+                    </main>
+
+
+                    <%- include('footer')%>
+</body>
+
+</html>

@@ -9,7 +9,6 @@ function moveSlider(n) {
 
 function showSlides(n) {
     let slides = document.querySelectorAll('.slider img');
-
     if (n >= slides.length) {
         slideIndex = 0;
     } else if (n < 0) {
