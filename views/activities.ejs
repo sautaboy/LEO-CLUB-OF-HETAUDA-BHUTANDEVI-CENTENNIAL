@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Activities</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+
+</head>
+
+<body>
+    <%- include("header")%>
+
+        <main>
+            <div id="activities">
+                <h2>Admin Panel For Post Activities </h2>
+                <div>
+                    <form action="">
+                        <label for="title"></label>
+                        <input type="text" name="title" id="" placeholder="Enter Title">
+
+                        <label for="content"></label>
+                        <textarea name="content" id="" cols="30" rows="10" placeholder="Enter The Paragraph"></textarea>
+
+                        <div class="choose-image">
+                            <span class="select-an-image">Select an Image</span>
+                            <input type="file" id="image" name="image" accept="image/*" onchange="previewImage(event)"
+                                oninput="checkForm()">
+                        </div>
+
+
+                        <input type="submit" class="button">
+
+
+                    </form>
+
+                    <img src="/images/slider2.jpg" id="preview" hidden>
+                </div>
+                </activities>
+        </main>
+
+        <%- include("footer")%>
+
+
+
+            <script>
+                function previewImage(event) {
+                    const preview = document.getElementById('preview');
+                    const file = event.target.files[0];
+                    // Check if a file is selected
+                    if (file) {
+                        const reader = new FileReader();
+
+                        reader.onloadend = () => {
+                            preview.src = reader.result;
+                            preview.removeAttribute('hidden'); // Remove the hidden attribute
+                        }
+
+                        // Read the file as a data URL
+                        reader.readAsDataURL(file);
+                    } else {
+                        // If no file is selected, clear the preview and hide the image
+                        preview.src = "";
+                        preview.setAttribute('hidden', 'true'); // Add the hidden attribute
+                    }
+                }
+            </script>
+</body>
+
+</html>

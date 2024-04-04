@@ -48,7 +48,6 @@
                         <form action="/newMember" method="POST">
                             <h1>Tel l Us About Yourself</h1>
                             <br>
-
                             <label for="name">
                             </label>
                             <input type="text" name="name" placeholder="Full Name">
@@ -56,21 +55,59 @@
                             </label>
                             <input type="number" name="age" placeholder="Age">
                             <label for="phoneNumber"></label>
-                            <br>
                             <input type="number" name="number" placeholder="Phone Number">
                             <label for="emailAddress"></label>
                             <input type="email" name="email" placeholder="Email Address">
-                            <br>
+
 
                             <label for="address"></label>
                             <input type="text" name="address" placeholder="Address">
 
-                            <input type="submit" class="button">
+
+
+                            <div class="choose-image-and-preview">
+                                <label for="photo" class="choose-image">
+                                    <span>Choose Image</span>
+                                    <input type="file" name="photo" placeholder="Address"
+                                        onchange="previewImage(event)">
+                                </label>
+
+                                <input type="submit" class="button">
+                            </div>
+
                         </form>
+                        <img src="" alt="" class="image-preview-in-join preview" id="preview" hidden>
                     </main>
 
 
                     <%- include('footer')%>
+
+
+                        <script>
+
+                            function previewImage(event) {
+                                const preview = document.querySelector('.preview');
+                                const file = event.target.files[0];
+
+
+                                // Check if a file is selected
+                                if (file) {
+                                    const reader = new FileReader();
+
+                                    reader.onloadend = () => {
+                                        preview.src = reader.result;
+                                        preview.removeAttribute('hidden'); // Remove the hidden attribute
+                                    }
+
+                                    // Read the file as a data URL
+                                    reader.readAsDataURL(file);
+                                } else {
+                                    // If no file is selected, clear the preview and hide the image
+                                    preview.src = "";
+                                    preview.setAttribute('hidden', 'true'); // Add the hidden attribute
+                                }
+                            }
+                        </script>
 </body>
 
 </html>

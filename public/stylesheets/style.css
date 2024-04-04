@@ -452,6 +452,11 @@ main.joinus p {
   line-height: 30px;
 }
 
+main.joinus input[type="file"] {
+  background: var(--grey);
+  background: red;
+}
+
 main.joinus form input {
   padding: 20px;
   width: 20rem;
@@ -462,6 +467,29 @@ main.joinus form input {
   outline: none;
   border: none;
   color: var(--black);
+}
+
+main.joinus .choose-image span {
+  background: var(--blue);
+  width: 20rem;
+  height: initial !important;
+  padding: 20px !important;
+  color: #fff;
+}
+
+main.joinus .choose-image-and-preview {
+  display: flex;
+  /* justify-content: flex-start; */
+  width: fit-content;
+  width: 40rem;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.image-preview-in-join {
+  height: 20rem;
+  width: 20rem;
+  border-radius: 10px;
 }
 
 /* members page */
@@ -555,6 +583,7 @@ main.members .members-container .member-box:hover>div {
 }
 
 
+
 .background-attachment div h1 {
   font-size: 2vw;
   line-height: 50px;
@@ -617,8 +646,6 @@ main.about-us div.we-are-on-mission {
 
 
 /* make donation */
-
-
 .make-donation-info {
   width: 80%;
   margin: 5rem auto;
@@ -687,10 +714,82 @@ main.about-us div.we-are-on-mission {
   z-index: 1;
 }
 
+/* activities */
+
+#activities {
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 5rem;
+  display: flex;
+  flex-direction: column;
+}
 
 
+#activities>div {
+  display: flex;
+  align-items: flex-start;
+  gap: 3rem;
+  min-height: 40vh;
+
+}
+
+#preview {
+  height: 38vh;
+  width: 30%;
+  border-radius: 10px;
+  margin-top: 1rem;
+  object-fit: contain !important;
+}
 
 
+#activities form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 40%;
+}
+
+#activities form input,
+#activities form textarea {
+  padding: 20px;
+  color: var(--black);
+  outline: none;
+  border: none;
+  border-radius: 10px;
+}
+
+.choose-image {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: flex-start;
+
+}
+
+.choose-image #preview {
+  height: 10rem;
+}
+
+.choose-image span {
+  position: absolute;
+  background: var(--blue);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  letter-spacing: 1px;
+  font-size: 16px;
+  width: 100%;
+  left: 0;
+  border-radius: 10px;
+  height: 100%;
+}
+
+.choose-image input {
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+}
 
 
 

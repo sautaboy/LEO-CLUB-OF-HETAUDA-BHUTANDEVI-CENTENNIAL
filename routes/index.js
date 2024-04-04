@@ -1,14 +1,42 @@
 var express = require('express');
 var router = express.Router();
+var multer = require('multer');
 
 var userModel = require("../Models/user")
 var activityModel = require("../Models/activities")
+
+// multer page
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    return cb(null, './public/uploads')
+  },
+  filename: function (req, file, cb) {
+    return cb(null, `${Date.now()} - ${file.originalname}`)
+  }
+})
+upload = multer({ storage: storage })
+
+
+
+
+
+
+
+
+
+
 
 /* GET home page. */
 router.get("/", (req, res) => {
   res.render("index")
 })
 
+
+
+router.get("/activities", (req, res) => {
+  res.render("activities")
+})
 
 // creating user
 router.post("/newMember", async (req, res) => {
