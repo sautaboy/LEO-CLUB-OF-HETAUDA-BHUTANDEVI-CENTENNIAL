@@ -7,7 +7,6 @@
   <title>Index Page</title>
   <link rel="stylesheet" href="/stylesheets/style.css">
 
-  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,8 +28,6 @@
           <p>Error rendering header: <%= error.message %>
           </p>
           <% } %>
-
-
 
             <div class="slider-container">
               <div class="slider">
@@ -120,41 +117,59 @@
 
 
             <div id="recent-activities">
-
               <h1>Recent Activities</h1>
               <div>
                 <p>Your little support can bring smile to the homeless people</p>
-                <a href="" class="button">See More</a>
+                <a href="/activities" class="button">See More</a>
               </div>
 
               <div class="activities-container">
-                <div class="box">
-                  <img
-                    src="https://chicagoparent.nyc3.cdn.digitaloceanspaces.com/wp-content/uploads/2022/02/MP-Handpicked-5-credit-peopleimages-696x416.jpeg"
-                    alt="">
-                  <h2>Insure Education For Every Children</h2>
-                  <p>
-                    first charity is help homeless people around the city…
-                  </p>
-                </div>
-                <div class="box">
-                  <img
-                    src="https://chicagoparent.nyc3.cdn.digitaloceanspaces.com/wp-content/uploads/2022/02/MP-Handpicked-5-credit-peopleimages-696x416.jpeg"
-                    alt="">
-                  <h2>Insure Education For Every Children</h2>
-                  <p>
-                    first charity is help homeless people around the city…
-                  </p>
-                </div>
-                <div class="box">
-                  <img
-                    src="https://chicagoparent.nyc3.cdn.digitaloceanspaces.com/wp-content/uploads/2022/02/MP-Handpicked-5-credit-peopleimages-696x416.jpeg"
-                    alt="">
-                  <h2>Insure Education For Every Children</h2>
-                  <p>
-                    first charity is help homeless people around the city…
-                  </p>
-                </div>
+                <% activities.reverse().slice(0, 3).forEach(activity=> { %>
+                  <div class="box" style="position: relative;">
+                    <a href="/activities/<%=activity._id%>" class="have-id"></a>
+                    <% if (activity.images && activity.images.length> 0) { %>
+                      <div class="box-img">
+                        <img src="<%= activity.images[0].imageUrl %>" alt="<%= activity.images[0].originalFilename %>">
+                        <% } else { %>
+                          <img src="/path/to/default/image.jpg" alt="Default Image">
+                          <% } %>
+                      </div>
+
+                      <div class="info-div">
+                        <h3>
+                          <%= activity.activitiyTitle %>
+                        </h3>
+                        <p>
+                          <% const words=activity.activityParagraph.split(' ');
+                    let truncatedText = '';
+                    if (words.length > 17) {
+                      truncatedText = words.slice(0, 17).join(' ') + ' ...'; } else if
+                            (activity.activityParagraph.length> 130) {
+                            truncatedText = activity.activityParagraph.slice(0, 130) + '...';
+                            } else {
+                            truncatedText = activity.activityParagraph;
+                            }
+                            %>
+                            <%= truncatedText %>
+                        </p>
+                        <% if (isAuthenticated) { %>
+                          <button class="delete-button" data-id="<%= activity._id %>">
+                            <i class="ri-delete-bin-fill"></i>
+                          </button>
+                          <% } %>
+
+                      </div>
+                  </div>
+                  <% }); %>
+
+
+
+
+
+
+
+
+
               </div>
               <a href="/donate" class="donate button ">Donate</a>
             </div>
@@ -240,10 +255,90 @@
             </div>
 
 
+            <% if (isAuthenticated) { %>
+              <form id="activities" action="/admin/postactivities" method="POST" enctype="multipart/form-data">
+                <h1>Upload your activities</h1>
+                <input type="text" name="activitiyTitle" placeholder="Activity Title">
+                <textarea name="activityParagraph" placeholder="Write some paragraph about activities"></textarea>
 
-            <%- include('footer')%>
+                <div class="choose-image-and-preview">
+                  <label for="photo" class="choose-image">
+                    <span>Choose Images</span>
+                    <input type="file" name="activitiesPhotos" id="activitiesPhotos" onchange="previewImages(event)"
+                      multiple>
+                  </label>
+                  <input type="submit" class="button">
+                </div>
+              </form>
+              <br>
+
+              <div class="show-all-preview-images" id="previewContainer">
+                <!-- Preview images will be appended here -->
+              </div>
+              <% } %>
+
+
+                <%- include('footer')%>
   </main>
+
+
+
   <script src="javascripts/script.js"></script>
+
+  <script>
+    document.querySelectorAll('.delete-button').forEach(button => {
+      button.addEventListener('click', async function () {
+        const activityId = this.getAttribute('data-id');
+        const confirmation = confirm('Do you want to delete this Activity?');
+        if (confirmation) {
+          try {
+            const response = await fetch(`/activities/${activityId}`, {
+              method: 'DELETE',
+              headers: {
+                'Content-Type': 'application/json'
+              }
+            });
+            if (response.ok) {
+              // Remove the activity div from the DOM
+              this.closest('.box').remove();
+            } else {
+              alert('Failed to delete the activity.');
+            }
+          } catch (error) {
+            console.error('Error:', error);
+          }
+        }
+      });
+    });
+  </script>
+
+
+  <script>
+    function previewImages(event) {
+      const previewContainer = document.getElementById('previewContainer');
+      previewContainer.innerHTML = ''; // Clear previous previews
+
+      const files = event.target.files;
+      if (files.length > 0) {
+        Array.from(files).forEach(file => {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            img.classList.add('image-preview-in-join', 'preview');
+            img.style.width = '100px'; // Set the desired width
+            img.style.height = 'auto'; // Maintain aspect ratio
+            img.style.margin = '5px'; // Add margin if needed
+            previewContainer.appendChild(img);
+          }
+          reader.readAsDataURL(file);
+        });
+      }
+    }
+  </script>
+
+
+
 </body>
 
 </html>

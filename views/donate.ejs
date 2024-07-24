@@ -9,7 +9,14 @@
 
 <body>
 
+    <div class="payment-div">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxyNwNvy631nVIU6YvcsI4qQVBS1frMyqH6b5LfCrrNNtLPNz04xVTvV9YNLNmxOt7nvw&usqp=CAU"
+            alt="" class="esewa">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxyNwNvy631nVIU6YvcsI4qQVBS1frMyqH6b5LfCrrNNtLPNz04xVTvV9YNLNmxOt7nvw&usqp=CAU"
+            alt="" class="khalti">
+        <i class="ri-close-line qr-close"></i>
 
+    </div>
     <main class="make-donation">
         <% try { %>
             <%- include('header') %>
@@ -33,15 +40,18 @@
 
                         <div class="how-would-you-like-to-pay">
                             <h1>How would you like to pay?</h1>
-                            <div>
-                                <a href="" class="button">eSewa</a>
-                                <a href="" class="button">Paypal</a>
+
+                            <div style="position: relative;">
+                                <h4 class="button esewa-button" style="background-color: green;">eSewa</h4>
+                                <h4 class="button khalti-button" style="background-color: #fff; color: #000;">Khalti
+                                </h4>
                             </div>
                         </div>
 
 
                         <div class="donation-image">
-                            <video src="/videos/5738272-hd_1920_1080_30fps.mp4" autoplay muted loop></video>
+                            <img src="https://images.moneycontrol.com/static-mcnews/2021/10/donation.jpg?impolicy=website&width=1600&height=900"
+                                alt="" style="opacity: .2;">
                             <div>
                                 <h1>Your Donate Make Soe One LIfe Easier</h1>
                                 <p>LCIF is your foundation—and together, we can respond quickly for a powerful impact.
@@ -78,6 +88,50 @@
                 <p>Error rendering header: <%= error.message %>
                 </p>
                 <% } %>
+                    <script>
+                        document.querySelector(".esewa-button").addEventListener("click", () => {
+                            document.querySelector(".esewa").classList.add("active");
+                            document.querySelector(".khalti").classList.remove("active");
+                            document.querySelector(".qr-close").classList.add("active");
+                            document.querySelector(".payment-div").classList.add("active");
+                            document.querySelector("main").style.filter = "blur(5px)";
+                            document.querySelector("main").style.pointerEvents = "none";
+
+                        });
+
+                        document.querySelector(".khalti-button").addEventListener("click", () => {
+                            document.querySelector(".esewa").classList.remove("active");
+                            document.querySelector(".khalti").classList.add("active");
+                            document.querySelector(".qr-close").classList.add("active");
+                            document.querySelector(".payment-div").classList.add("active");
+                            document.querySelector("main").style.filter = "blur(5px)";
+                            document.querySelector("main").style.pointerEvents = "none";
+
+                        });
+
+                        document.addEventListener("keydown", (event) => {
+                            if (event.key === "Escape") {
+                                document.querySelector(".esewa").classList.remove("active");
+                                document.querySelector(".khalti").classList.remove("active");
+                                document.querySelector(".qr-close").classList.remove("active");
+                                document.querySelector(".payment-div ").classList.remove("active");
+                                document.querySelector("main").style.pointerEvents = "initial";
+                                document.querySelector("main").style.filter = "blur(0px)";
+
+
+                            }
+                        });
+                        document.querySelector(".qr-close").addEventListener("click", () => {
+                            document.querySelector(".esewa").classList.remove("active");
+                            document.querySelector(".khalti").classList.remove("active");
+                            document.querySelector(".qr-close").classList.remove("active");
+                            document.querySelector(".payment-div").classList.remove("active");
+                            document.querySelector("main").style.filter = "blur(0px)";
+                            document.querySelector("main").style.pointerEvents = "initial";
+
+                        })
+                    </script>
+
 </body>
 
 </html>

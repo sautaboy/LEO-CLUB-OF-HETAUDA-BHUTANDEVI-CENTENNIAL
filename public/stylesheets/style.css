@@ -14,7 +14,7 @@
 
 :root {
   --yellow: rgb(213, 161, 48);
-  --grey: rgb(127, 127, 127);
+  --grey: #2b2a2a;
   --dark: rgba(45, 45, 45, 0.747);
   --black: rgb(33, 33, 33);
   --white: rgb(255, 255, 255);
@@ -23,7 +23,19 @@
 
 
 
+main {
+  transition: .3s ease-in-out;
+}
 
+
+button.delete-button {
+  background: red;
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 2rem;
+  z-index: 2;
+}
 
 img {
   width: 100%;
@@ -35,12 +47,133 @@ p {
   line-height: 25px;
 }
 
+a.have-id {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
 html,
 body {
   width: 100%;
   height: 100%;
   position: relative;
   background: var(--black);
+  overflow-x: hidden;
+
+
+}
+
+.chat-close {
+  position: absolute;
+  top: -0%;
+  right: 0;
+  cursor: pointer;
+  font-size: 2.8rem;
+  background: #111;
+  border-radius: 10px;
+}
+
+.chat-button {
+  position: fixed;
+  right: 4rem;
+  bottom: 3rem;
+  height: 3rem;
+  width: 3rem;
+  font-size: 2.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--grey);
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+
+.chat-div {
+  height: 500px;
+  width: 300px;
+  position: fixed;
+  background: #000;
+  border: 4px solid #ffffff50;
+  border-radius: 10px;
+  padding: 10px;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 3;
+  transform: translateY(110%);
+  transition: .3s ease-in-out;
+}
+
+.chat-div.active {
+  transform: translateY(0%);
+}
+
+.chat-div .send {
+  width: 100%;
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  border-radius: 10px;
+  padding: 5px;
+  gap: 3px;
+}
+
+.chat-div .message {
+  height: 90%;
+  background: #000;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.chat-div .message::-webkit-scrollbar {
+  display: none;
+}
+
+.chat-div .message p {
+  padding: 5px 10px;
+  background: #111;
+  border-radius: 10px;
+  width: fit-content;
+  height: fit-content;
+  cursor: pointer;
+}
+
+.chat-div .message .single-message.sender {
+  align-self: flex-end;
+  background: #161515;
+}
+
+.chat-div input {
+  padding: 10px 0;
+  border: none;
+  background: none;
+  outline: none;
+}
+
+.chat-div .message .time {
+  font-size: 10px;
+  color: yellow;
+}
+
+.chat-div .send input:nth-child(1) {
+  width: 70%;
+  padding: 5px;
+  border: 1px solid #ffffff50;
+  border-radius: 10px;
+}
+
+.chat-div .send input:nth-child(2) {
+  width: 30%;
+  border: 1px solid #ffffff50;
+  border-radius: 10px;
+  background: var(--yellow);
+  cursor: pointer;
+
 }
 
 nav {
@@ -57,6 +190,7 @@ nav {
   padding: 10px 20px;
   width: 85%;
   margin-bottom: 2rem;
+  background: hsl(0, 0%, 19%);
 }
 
 nav span.web-title {
@@ -94,6 +228,20 @@ nav .middle {
 
 nav .middle a {
   letter-spacing: 1px;
+  border-bottom: 1px solid transparent;
+}
+
+nav .middle a:hover {
+  border-bottom: 1px solid #fff;
+}
+
+nav .middle a.logout {
+  border: none;
+  opacity: .5;
+}
+
+nav .middle a.logout:hover {
+  opacity: 1;
 }
 
 
@@ -107,7 +255,9 @@ button {
   font-size: medium;
 }
 
-a.button,
+
+
+.button,
 input.button {
   background: var(--yellow);
   width: 8rem;
@@ -155,7 +305,6 @@ main {
 
 
 img {
-  background: black;
   filter: brightness(60%);
 }
 
@@ -309,16 +458,43 @@ img {
 #recent-activities .activities-container>div {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 5px;
   background: var(--grey);
-  padding-bottom: 10px;
+  /* padding-bottom: 10px; */
+  width: calc(100% / 3);
+  max-height: 32rem;
+  border-radius: 10px;
+  transition: .2s ease-in-out;
+  cursor: pointer;
+  overflow: hidden;
 }
 
-#recent-activities .activities-container>div h2,
-#recent-activities .activities-container>div p {
-  width: 70%;
-  margin: 0 auto;
+#recent-activities .activities-container .box:hover {
+  filter: drop-shadow(1px 1px 2px #ffffff50);
 }
+
+#recent-activities .activities-container>div .box-img {
+  height: 55%;
+
+}
+
+#recent-activities .activities-container>div .box-img img {
+  object-fit: cover;
+}
+
+#recent-activities .activities-container .info-div {
+  height: fit-content;
+  max-height: 45%;
+  overflow-y: scroll;
+  padding: 5px;
+}
+
+#recent-activities .activities-container .info-div p {
+  opacity: .8;
+}
+
+
+
 
 #recent-activities button.last {
   margin: 0 auto;
@@ -469,6 +645,13 @@ main.joinus form input {
   color: var(--black);
 }
 
+
+main#admin form textarea {
+  min-height: 20rem;
+  width: 100%;
+  resize: none;
+}
+
 main.joinus .choose-image span {
   background: var(--blue);
   width: 20rem;
@@ -479,11 +662,11 @@ main.joinus .choose-image span {
 
 main.joinus .choose-image-and-preview {
   display: flex;
-  /* justify-content: flex-start; */
   width: fit-content;
   width: 40rem;
   justify-content: center;
   align-items: flex-start;
+  height: fit-content;
 }
 
 .image-preview-in-join {
@@ -521,32 +704,34 @@ main.members .members-container .member-box {
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  /* gap: 10px; */
   background: var(--grey);
   overflow-y: hidden;
-  height: 32rem;
+  max-height: 32rem;
+  transition: .2s ease-in-out;
 }
 
-main.members .members-container .member-box img {
-  height: 70%;
-  transition: .5s ease-in-out;
+main.members .members-container .member-box:hover {
+  filter: drop-shadow(1px 1px 2px #ffffff50);
 }
 
-main.members .members-container .member-box:hover>img {
-  scale: 1.1;
+main.members .members-container .member-box .user-img {
+  height: 20rem;
+}
+
+main.members .members-container .member-box .user-img img {
+  border-radius: 10px;
 }
 
 main.members .members-container .member-box>div {
   transition: .5s ease-in-out;
+  height: fit-content;
+  height: fit-content;
   padding: 10px;
   display: flex;
   gap: 10px;
   flex-direction: column;
 }
 
-main.members .members-container .member-box:hover>div {
-  margin-top: 1rem;
-}
 
 /* about us */
 .background-attachment {
@@ -684,23 +869,7 @@ main.about-us div.we-are-on-mission {
   position: relative;
 }
 
-.donation-image::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  filter: brightness(50%);
-}
 
-.donation-image video {
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-  filter: brightness(50%);
-  /* Apply brightness filter to the video */
-}
 
 .donation-image div {
   position: absolute;
@@ -712,6 +881,61 @@ main.about-us div.we-are-on-mission {
   gap: 1rem;
   flex-direction: column;
   z-index: 1;
+}
+
+.qr-close {
+  font-size: 2rem;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 3;
+  font-size: 0rem;
+  transition: .3s ease-in-out;
+}
+
+.qr-close.active {
+  display: block;
+  cursor: pointer;
+  font-size: 2rem;
+}
+
+.payment-div {
+  height: 500px;
+  width: 500px;
+  padding: 10px;
+  position: relative;
+  overflow: hidden;
+  position: fixed;
+  top: 50%;
+  left: 120%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  border-radius: 10px;
+}
+
+
+
+.payment-div.active {
+  left: 50%;
+}
+
+.payment-div img {
+  position: absolute;
+  height: 0px;
+  width: 0%;
+  object-fit: cover;
+  left: 0;
+  top: 0;
+  object-fit: contain;
+  transition: .3s ease-in-out;
+  filter: brightness(100%);
+  border-radius: 10px;
+}
+
+.payment-div img.active {
+  height: 500px;
+  width: 500px;
+  background: none;
 }
 
 /* activities */
@@ -729,7 +953,7 @@ main.about-us div.we-are-on-mission {
   display: flex;
   align-items: flex-start;
   gap: 3rem;
-  min-height: 40vh;
+  min-height: fit-content;
 
 }
 
@@ -742,20 +966,33 @@ main.about-us div.we-are-on-mission {
 }
 
 
-#activities form {
+#activities {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  width: 40%;
+  width: 85%;
+  margin: 0 auto;
 }
 
-#activities form input,
-#activities form textarea {
+#activities input,
+#activities textarea {
   padding: 20px;
   color: var(--black);
   outline: none;
   border: none;
   border-radius: 10px;
+}
+
+#activities textarea {
+  min-height: 300px;
+}
+
+.show-all-preview-images {
+  width: 85%;
+  margin: 0 auto;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 .choose-image {
@@ -764,12 +1001,8 @@ main.about-us div.we-are-on-mission {
   overflow: hidden;
   display: flex;
   justify-content: flex-start;
-
 }
 
-.choose-image #preview {
-  height: 10rem;
-}
 
 .choose-image span {
   position: absolute;
@@ -789,6 +1022,13 @@ main.about-us div.we-are-on-mission {
   height: 100%;
   width: 100%;
   opacity: 0;
+}
+
+
+/* #admin */
+#admin {
+  width: 85%;
+  margin: 0 auto;
 }
 
 

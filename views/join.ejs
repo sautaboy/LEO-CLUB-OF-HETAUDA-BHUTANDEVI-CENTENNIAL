@@ -45,12 +45,12 @@
                             in contact with you. We are excited for you to start your service journey!
                         </p>
 
-                        <form action="/newMember" method="POST">
+                        <form action="/newMember" method="POST" enctype="multipart/form-data">
                             <h1>Tel l Us About Yourself</h1>
                             <br>
                             <label for="name">
                             </label>
-                            <input type="text" name="name" placeholder="Full Name">
+                            <input type="text" name="fullname" placeholder="Full Name">
                             <label for="age">
                             </label>
                             <input type="number" name="age" placeholder="Age">
@@ -68,8 +68,7 @@
                             <div class="choose-image-and-preview">
                                 <label for="photo" class="choose-image">
                                     <span>Choose Image</span>
-                                    <input type="file" name="photo" placeholder="Address"
-                                        onchange="previewImage(event)">
+                                    <input type="file" name="photo" onchange="previewImage(event)">
                                 </label>
 
                                 <input type="submit" class="button">

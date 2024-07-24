@@ -1,5 +1,31 @@
 <link rel="stylesheet" href="/stylesheets/style.css">
 
+
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+
+
+<i class="ri-chat-1-line chat-button"></i>
+<div class="chat-div">
+    <i class="ri-close-circle-line chat-close"></i>
+
+    <div class="message">
+        <% messages.forEach(message=> { %>
+            <div class="message-container">
+                <div class="time" style="display: none;">
+                    <%= message.createdAt %>
+                </div>
+                <p class="message-text" data-time="<%= message.createdAt %>">
+                    <%= message.message %>
+                </p>
+            </div>
+            <% }) %>
+    </div>
+    <div class="send">
+        <input type="text" placeholder="write message" class="chat-message">
+        <input type="submit" value="Send" class=chat-send-button>
+    </div>
+</div>
+
 <nav>
     <a href="/" class="left">
         <img src="/images/leo.jpeg" alt="">
@@ -10,9 +36,110 @@
         <a href="/">Home</a>
         <a href="/aboutus">About Us</a>
         <a href="/members">Members</a>
+        <% if (isAuthenticated) { %>
+
+            <a href="/admin">Admin</a>
+            <% } %>
+                <% if (isAuthenticated) { %>
+
+                    <a href="/logout" style="position: fixed; top: 1.5rem; right: 1.5rem; font-size: 2.5rem;"
+                        class="logout">
+                        <i class="ri-logout-box-line"></i>
+                    </a>
+                    <% } %>
+
     </div>
     <div class="right">
         <a href="/join" class="join button">Join</a>
         <a href="/donate" class="donate button ">Donate</a>
     </div>
 </nav>
+
+<script src="/socket.io/socket.io.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    // Initialize socket connection
+    var socket = io();
+
+    // Select the necessary elements
+    const sendButton = document.querySelector(".chat-send-button");
+    const chatMessage = document.querySelector(".chat-message");
+    const messages = document.querySelector(".message");
+    const chatDiv = document.querySelector(".chat-div");
+
+    // Function to handle sending messages
+    function sendMessage() {
+        const message = chatMessage.value.trim();
+        if (message !== "") {
+            socket.emit('user-message', message);
+            chatMessage.value = ""; // Clear the input field
+        }
+    }
+
+    // Handle incoming messages
+    socket.on("message", message => {
+        const p = document.createElement("p");
+        p.innerText = message;
+        messages.appendChild(p); // Append new message to the end
+        messages.scrollTop = messages.scrollHeight; // Scroll to the bottom
+    });
+
+    // Handle send button click
+    sendButton.addEventListener("click", sendMessage);
+
+    // Handle sending message with Ctrl+Enter or Cmd+Enter
+    chatMessage.addEventListener("keydown", (event) => {
+        if ((event.ctrlKey || event.metaKey) && event.key === "Enter") {
+            event.preventDefault(); // Prevent default behavior
+            sendMessage();
+        }
+    });
+
+    // Handle opening and closing the chat window
+    document.querySelector(".chat-button").addEventListener("click", () => {
+        chatDiv.classList.add("active");
+    });
+
+    document.querySelector(".chat-close").addEventListener("click", () => {
+        chatDiv.classList.remove("active");
+    });
+
+    // Handle closing the chat window with the Esc key
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+            chatDiv.classList.remove("active");
+        }
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Scroll to the bottom of the messages container when the page loads
+        const messageContainer = document.querySelector('.message');
+        messageContainer.scrollTop = messageContainer.scrollHeight;
+
+        const messageContainers = document.querySelectorAll('.message-container');
+
+        messageContainers.forEach(container => {
+            const messageText = container.querySelector('.message-text');
+            const timeDiv = container.querySelector('.time');
+
+            messageText.addEventListener('click', () => {
+                // Hide all time divs
+                document.querySelectorAll('.time').forEach(time => {
+                    if (time !== timeDiv) {
+                        time.style.display = 'none';
+                    }
+                });
+
+                // Toggle visibility of the clicked time div
+                if (timeDiv.style.display === 'none') {
+                    timeDiv.style.display = 'block';
+                } else {
+                    timeDiv.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>

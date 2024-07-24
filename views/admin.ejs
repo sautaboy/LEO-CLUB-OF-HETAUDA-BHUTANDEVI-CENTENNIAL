@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <style>
+        table {
+            border: 1px solid #fff;
+            width: 85%;
+            margin: 2rem auto;
+        }
+
+        th {
+            font-weight: bold;
+        }
+
+        td.delete-user,
+        td.delete-activity {
+            cursor: pointer;
+            padding: 1rem;
+        }
+
+        td.delete-activity:hover,
+        td.delete-user:hover {
+            background: red;
+        }
+
+        th {
+            padding: 20px 10px;
+        }
+
+        td {
+            background: #111;
+            opacity: .9;
+            font-weight: 200;
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        tr {
+            background: #000;
+        }
+
+        th {
+            background: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <table>
+        <caption>
+            <h1>All Members</h1>
+        </caption>
+        <thead>
+            <tr>
+                <th>Id <i class="ri-id-card-line"></i></th>
+                <th>Full Name</th>
+                <th>Age</th>
+                <th>Email Address</th>
+                <th>Address</th>
+                <th>Profile Photo</th>
+                <th>Delete User <i class="ri-user-line"></i></th>
+            </tr>
+        </thead>
+        <tbody>
+            <% members.forEach(member=> { %>
+                <tr data-id="<%= member._id %>">
+                    <td>
+                        <%= member._id %>
+                    </td>
+                    <td>
+                        <%= member.fullname %>
+                    </td>
+                    <td>
+                        <%= member.age %>
+                    </td>
+                    <td>
+                        <%= member.email %>
+                    </td>
+                    <td>
+                        <%= member.address %>
+                    </td>
+                    <td>
+                        <%= member.photo %>
+                    </td>
+                    <td class="delete-user" data-id="<%= member._id %>"><i class="ri-user-forbid-fill"></i></td>
+                </tr>
+                <% }) %>
+        </tbody>
+    </table>
+
+    <table>
+        <caption>
+            <h1>All Activities</h1>
+        </caption>
+        <thead>
+            <tr>
+                <th>Id <i class="ri-id-card-line"></i></th>
+                <th>Post Title</th>
+                <th>Post Content</th>
+                <th>Number of Media</th>
+                <th>Delete Activity <i class="ri-user-line"></i></th>
+            </tr>
+        </thead>
+        <tbody>
+            <% activities.forEach(activity=> { %>
+                <tr data-id="<%= activity._id %>">
+                    <td>
+                        <%= activity._id %>
+                    </td>
+                    <td>
+                        <%= activity.activitiyTitle %>
+                    </td>
+                    <td>
+                        <%= activity.activityParagraph %>
+                    </td>
+                    <td>
+                        <%= activity.images.length %>
+                    </td>
+                    <td class="delete-activity" data-id="<%= activity._id %>">
+                        <i class="ri-user-forbid-fill"></i>
+                    </td>
+                </tr>
+                <% }) %>
+        </tbody>
+    </table>
+    <script>
+        document.querySelectorAll('.delete-activity').forEach(button => {
+            button.addEventListener('click', async function () {
+                if (confirm('Are you sure you want to delete this activity?')) {
+                    const activityId = this.getAttribute('data-id');
+                    const response = await fetch(`/activities/${activityId}`, {
+                        method: 'DELETE'
+                    });
+
+                    if (response.ok) {
+                        this.closest('tr').remove();
+                    } else {
+                        alert('Failed to delete activity');
+                    }
+                }
+            });
+        });
+    </script>
+    <script>
+        document.querySelectorAll('.delete-user').forEach(button => {
+            button.addEventListener('click', async function () {
+                if (confirm('Are you sure you want to delete this Member?')) {
+                    const memberId = this.getAttribute('data-id');
+                    const response = await fetch(`/member/${memberId}`, {
+                        method: 'DELETE'
+                    });
+
+                    if (response.ok) {
+                        this.closest('tr').remove();
+                    } else {
+                        alert('Failed to delete Member');
+                    }
+                }
+            });
+        });
+    </script>
+
+
+</body>
+
+</html>
